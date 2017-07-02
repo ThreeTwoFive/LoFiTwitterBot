@@ -1,7 +1,7 @@
 var Twit = require('twit');
 //var configKeys = require('./config.js');
 
-var Bot = new TwitterBot({
+var Bot = new Twit({
     consumer_key: process.env.BOT_CONSUMER_KEY,
     consumer_secret: process.env.BOT_CONSUMER_SECRET,
     access_token: process.env.BOT_ACCESS_TOKEN,
