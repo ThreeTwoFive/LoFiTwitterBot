@@ -1,12 +1,7 @@
 var Twit = require('twit');
-//var configKeys = require('./config.js');
+var configKeys = require('./config.js');
 
-var bot = new Twit({
-    consumer_key: process.env.BOT_CONSUMER_KEY,
-    consumer_secret: process.env.BOT_CONSUMER_SECRET,
-    access_token: process.env.BOT_ACCESS_TOKEN,
-    access_token_secret: process.env.BOT_ACCESS_TOKEN_SECRET
-});
+var bot = new Twit(configKeys);
 
 //12 links
 var links = ['https://www.youtube.com/watch?v=6mtn1YWyJas',
