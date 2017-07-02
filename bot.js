@@ -1,7 +1,7 @@
 var Twit = require('twit');
 //var configKeys = require('./config.js');
 
-var Bot = new Twit({
+var bot = new Twit({
     consumer_key: process.env.BOT_CONSUMER_KEY,
     consumer_secret: process.env.BOT_CONSUMER_SECRET,
     access_token: process.env.BOT_ACCESS_TOKEN,
@@ -32,10 +32,11 @@ bot.post('statuses/update',
 })
 
 //test post status on mention
+/*
 bot.get('statuses/mentions_timeline', function(err, data, response){
     console.log(data);
 })
-
+*/
 //test post at certain time (Daily post feature)
 
 
