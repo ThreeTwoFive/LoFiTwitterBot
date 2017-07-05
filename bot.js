@@ -3,7 +3,7 @@ var configKeys = require('./resources/config.js');
 
 function postDailySongTweet(){
     var bot = new Twit(configKeys);
-    //get random link from crawler json file
+    //get url from YoutubeVideosDB populated from crawler
     var links = ['https://www.youtube.com/watch?v=6mtn1YWyJas',
                 'https://www.youtube.com/watch?v=DhHGDOgjie4',
                 'https://www.youtube.com/watch?v=7D4kEdnShrs',
