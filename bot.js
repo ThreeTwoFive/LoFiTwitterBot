@@ -1,9 +1,9 @@
 var Twit = require('twit');
-var configKeys = require('./config.js');
+var configKeys = require('./resources/config.js');
 
 function postDailySongTweet(){
     var bot = new Twit(configKeys);
-    
+    //get random link from crawler json file
     var links = ['https://www.youtube.com/watch?v=6mtn1YWyJas',
                 'https://www.youtube.com/watch?v=DhHGDOgjie4',
                 'https://www.youtube.com/watch?v=7D4kEdnShrs',
@@ -17,28 +17,20 @@ function postDailySongTweet(){
                 'https://www.youtube.com/watch?v=fgGFNZWEIcU',
                 'https://www.youtube.com/watch?v=HYLxs7Gonac'];
     
-    getDailySongs();
+    //getDailySongs();
 
     bot.post('statuses/update', 
-        {status: 'New Hour New Vibes '
+        {status: 'New Day New Vibes '
             + links[Math.floor(Math.random() * links.length)]
         }, 
         function(err, data, response){
-
-        console.log(data);
-    })
+            console.log(data);
+        }
+    )
 
 }
 
-function getDailySongs(){
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'url');
-    xhr.send();
-
-    console.log(JSON.parse(xhr.responseText));
-}
-
-
+postDailySongTweet();
 /*
     Move other functions to another file
     They need to be run at different intervals or constantly
