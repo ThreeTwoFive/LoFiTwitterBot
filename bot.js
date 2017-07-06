@@ -1,50 +1,43 @@
 var Twit = require('twit');
 var configKeys = require('./resources/config.js');
 
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database("YoutubeVideosDB");
+
 function postDailySongTweet(){
     var bot = new Twit(configKeys);
-    //get url from YoutubeVideosDB populated from crawler
-    var links = ['https://www.youtube.com/watch?v=6mtn1YWyJas',
-                'https://www.youtube.com/watch?v=DhHGDOgjie4',
-                'https://www.youtube.com/watch?v=7D4kEdnShrs',
-                'https://www.youtube.com/watch?v=dIC4VSUE7q4',
-                'https://www.youtube.com/watch?v=HbGoW-L_zwk',
-                'https://www.youtube.com/watch?v=fOy1esPEc08',
-                'https://www.youtube.com/watch?v=UvO6PuPFpYc',
-                'https://www.youtube.com/watch?v=nLEOwgm7OUQ',
-                'https://www.youtube.com/watch?v=TGLQ5C8JYZw',
-                'https://www.youtube.com/watch?v=jo4-FhqkNwQ',
-                'https://www.youtube.com/watch?v=fgGFNZWEIcU',
-                'https://www.youtube.com/watch?v=HYLxs7Gonac'];
-    
-    //getDailySongs();
+    var data;
 
-    bot.post('statuses/update', 
-        {status: 'New Day New Vibes '
-            + links[Math.floor(Math.random() * links.length)]
-        }, 
-        function(err, data, response){
-            console.log(data);
-        }
-    )
+    getRandomVideo(function(data){
+        var vidUrl = 'https://www.youtube.com/watch?v=' + data.url;
+        bot.post('statuses/update', 
+            {status: 'New Day New Vibes ' + vidUrl}, 
+            function(err, data, response){
+                console.log("Finished posting tweet");
+            }
+        )
+    })
+}
 
+//All sqlite3 calls are async
+function getRandomVideo(callback){
+    db.each("SELECT TITLE as title, URL as url FROM YOUTUBEVIDEO ORDER By RANDOM() LIMIT 1", function(err, row){
+        var data =  {
+            title: row.title, 
+            url:row.url
+        };
+        callback(data);
+    });
 }
 
 postDailySongTweet();
-/*
-    Move other functions to another file
-    They need to be run at different intervals or constantly
-*/
 
-//test post status on mention
+//use twitter streaming API to bypass rate limit (mentions, tags)
+//Retweet tweets with specific hashtag #lofi #lofihiphop etc
+
 /*
 bot.get('statuses/mentions_timeline', function(err, data, response){
     console.log(data);
 })
 */
-//test post at certain time (Daily post feature)
-
-//Need function to scrape new song to post or grab from resource file
-
-//Retweet tweets with hashtag #lofi #lofihiphop etc
 
