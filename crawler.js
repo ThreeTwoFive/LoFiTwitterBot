@@ -11,7 +11,6 @@
 var http = require('http');
 var https = require('https');
 var configKeys = require('./resources/config.js');
-var youtubeIds = require('./resources/youtubeIds.js')
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("YoutubeVideosDB");
 
